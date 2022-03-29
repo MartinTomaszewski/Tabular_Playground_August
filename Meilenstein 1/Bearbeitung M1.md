@@ -4,6 +4,12 @@
 
 Code: "GRANT ALL PRIVILEGES ON DATABASE bi TO bi;"
 
+## Aufgabe 2
+
+___Dokumentation Vorgehensweise:___
+
+PHP Storm als Werkzeug zum Einlesen von CSV verwendet und die komplette CSV-Datei 'shoes.csv' in eine neue Datenbank 'shoes' eingelesen (vgl. VL1 - Folie 54)
+
 ## Aufgabe 3
 
 ### Aufgabe 3a)
