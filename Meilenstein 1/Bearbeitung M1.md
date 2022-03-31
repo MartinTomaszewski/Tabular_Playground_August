@@ -8,7 +8,7 @@ Code: "GRANT ALL PRIVILEGES ON DATABASE bi TO bi;"
 
 ___Dokumentation Vorgehensweise:___
 
-PHP Storm als Werkzeug zum Einlesen von CSV verwendet und die komplette CSV-Datei 'shoes.csv' in eine neue Datenbank 'shoes' eingelesen (vgl. VL1 - Folie 54)
+- PHP Storm als Werkzeug zum Einlesen von CSV verwendet und die komplette CSV-Datei 'shoes.csv' in eine neue Datenbank 'shoes' eingelesen (vgl. VL1 - Folie 54)
 
 ## Aufgabe 3
 
@@ -20,7 +20,7 @@ ___Teilaufgabe 1___
 
 ___Teilaufgabe 2___
 
-- SELECT brand, count(\*) FROM shoes GROUP BY brand ORDER BY count(\*) DESC, brand LIMIT 5;
+- `SELECT brand, count(\*) FROM shoes GROUP BY brand ORDER BY count(\*) DESC, brand LIMIT 5;`
 
 ___Teilaufgabe 3___
 
@@ -30,15 +30,20 @@ ___Teilaufgabe 3___
 
 ___Teilaufgabe 1___
 
-- ALTER TABLE shoes ADD COLUMN weight_gram FLOAT;
+- `ALTER TABLE shoes ADD COLUMN weight_gram FLOAT;`
 
-- UPDATE shoes SET weight_gram = CASE WHEN split_part(weight, ' ', 2) = 'lbs' THEN split_part(weight, ' ', 1)::FLOAT * 454 ELSE split_part(weight, ' ', 1)::FLOAT END WHERE weight IS NOT NULL;
+- `UPDATE shoes SET weight_gram = CASE WHEN split_part(weight, ' ', 2) = 'lbs' THEN split_part(weight, ' ', 1)::FLOAT * 454 ELSE split_part(weight, ' ', 1)::FLOAT END WHERE weight IS NOT NULL;`
 
 ___Teilaufgabe 2___
 
-- Größtes Gewicht = SELECT id, brand, descriptions, weight, weight_gram FROM shoes WHERE shoes.weight_gram IS NOT NULL ORDER BY weight_gram DESC LIMIT 1;
+- Größtes Gewicht = `SELECT id, brand, name, weight, weight_gram FROM shoes WHERE weight_gram IS NOT NULL ORDER BY weight_gram DESC LIMIT 1;`
 
-- Geringstes Gewicht = SELECT id, brand, descriptions, weight, weight_gram FROM shoes WHERE shoes.weight_gram IS NOT NULL ORDER BY weight_gram LIMIT 1;
+    _Alternative =_ `SELECT id, brand, name, weight, weight_gram FROM shoes WHERE weight_gram = (SELECT MAX(weight_gram) FROM shoes);`
+
+
+- Geringstes Gewicht = `SELECT id, brand, name, weight, weight_gram FROM shoes WHERE weight_gram IS NOT NULL ORDER BY weight_gram LIMIT 1;`
+
+    _Alternative =_ `SELECT id, brand, name, weight, weight_gram FROM shoes WHERE weight_gram = (SELECT MIN(weight_gram) FROM shoes);`
 
 ___Teilaufgabe 3___
 
@@ -58,7 +63,7 @@ ___Teilaufgabe 1___
 
 ___Teilaufgabe 2___
 
-- SELECT DISTINCT prices_condition FROM shoes;
+- `SELECT DISTINCT prices_condition FROM shoes;`
 
 ___Teilaufgabe 3___
 
@@ -72,7 +77,7 @@ ___Teilaufgabe 1___
 
 ___Teilaufgabe 2___
 
-- SELECT prices_condition, count(*) as shoe_counter FROM shoes GROUP BY prices_condition
+- `SELECT prices_condition, count(*) as shoe_counter FROM shoes GROUP BY prices_condition;`
 
 ___Teilaufgabe 3___
 
@@ -86,7 +91,7 @@ ___Teilaufgabe 1___
 
 ___Teilaufgabe 2___
 
-- SELECT DISTINCT prices_currency FROM shoes;
+- `SELECT DISTINCT prices_currency FROM shoes;`
 
 ___Teilaufgabe 3___
 
@@ -100,7 +105,7 @@ ___Teilaufgabe 1___
 
 ___Teilaufgabe 2___
 
-- SELECT prices_currency, count(*) FROM shoes GROUP BY prices_currency;
+- `SELECT prices_currency, count(*) FROM shoes GROUP BY prices_currency;`
 
 ___Teilaufgabe 3___
 
@@ -114,7 +119,7 @@ ___Teilaufgabe 1___
 
 ___Teilaufgabe 2___
 
-- SELECT id, brand, descriptions, avg(prices_amountmin) as average_price FROM shoes WHERE prices_currency = 'USD' GROUP BY id, brand, descriptions ORDER BY average_price DESC LIMIT 1;
+- `SELECT id, brand, name, avg(prices_amountmax) as average_price FROM shoes WHERE prices_currency = 'USD' GROUP BY id, brand, name ORDER BY average_price DESC LIMIT 1;`
 
 ___Teilaufgabe 3___
 
@@ -128,8 +133,56 @@ ___Teilaufgabe 1___
 
 ___Teilaufgabe 2___
 
-- SELECT prices_merchant, count(*) as frequency FROM shoes WHERE prices_merchant IS NOT NULL GROUP BY prices_merchant ORDER BY frequency DESC, prices_merchant LIMIT 5;
+- `SELECT prices_merchant, count(*) as frequency FROM shoes WHERE prices_merchant IS NOT NULL GROUP BY prices_merchant ORDER BY frequency DESC, prices_merchant LIMIT 5;`
 
 ___Teilaufgabe 3___
 
 ![](./pictures/3h.PNG)
+
+## Aufgabe 4
+
+- Das Geschäftsmodell des Vergleichsportals ist es höchstwahrscheinlich, Werbung entweder für ihre Internetseite z. B. in sozialen Netzwerken oder für externe Unternehmen auf dem Vergleichsportal zu schalten. Des Weiteren werden sie bestimmt Vermittlungsprovisionen von dem Anbieter der jeweiligen Leistung erhalten.
+
+## Aufgabe 5
+
+- __Weitere Fragestellungen:__
+  1. "Bei welcher Schuhmarke gibt es die kleinste Preisspanne?"
+  2. "Welche Schuhmarken (Top 5) sind durchschnittlich die günstigsten bei der Währung USD?"
+
+## Aufgabe 6
+
+### Aufgabe 6a)
+
+![](./pictures/6a.png)
+
+### Aufgabe 6b)
+
+> __Legende:__ Doppelt unterstrichen => Primary Key und Foreign Key
+
+- fact_prices(<span style="font-weight: bold; text-decoration: underline double">shoe_id</span>, <span style="font-weight: bold; text-decoration: underline double">category_id</span>, <span style="font-weight: double; text-decoration: underline double">manufacturernumber</span>, <span style="font-weight: bold; text-decoration: underline double">merchant_id</span>, <span style="font-weight: bold; text-decoration: underline double">category_id</span>, <span style="font-weight: bold; text-decoration: underline double">color_id</span>, <span style="font-weight: bold; text-decoration: underline double">price_properties_id</span>, prices_amountmin, prices_amountmax)
+- dim_shoes_key_data(<span style="font-weight: bold; text-decoration: underline solid">shoe_id</span>, name, brand, weight, imageurls)
+- dim_categories(<span style="font-weight: bold; text-decoration: underline solid">category_id</span>, name)
+- dim_colors(<span style="font-weight: bold; text-decoration: underline solid">color_id</span>, name)
+- dim_price_properties(<span style="font-weight: bold; text-decoration: underline solid">price_properties_id</span>, prices_currency, prices_condition)
+- dim_manufacturers(<span style="font-weight: bold; text-decoration: underline solid">manufacturernumber</span>, manufacturer)
+- dim_datetime_added(<span style="font-weight: bold; text-decoration: underline solid">id_datetime_added</span>, hour, day, month, year, datetime)
+- dim_datetime_updated(<span style="font-weight: bold; text-decoration: underline solid">id_datetime_updated</span>, hour, day, month, year, datetime)
+- dim_merchants(<span style="font-weight: bold; text-decoration: underline solid">merchant_id</span>, name)
+
+### Aufgabe 6c)
+
+__Teilaufgabe 1: _"Bei welcher Schuhmarke gibt es die größte Preisspanne?"___
+
+- `SELECT shoe_id, MAX(prices_amountmax - prices_amountmin) as max_difference FROM fact_prices GROUP BY shoe_id ORDER BY max_difference DESC LIMIT 1;`
+
+__Teilaufgabe 2: _"Bei welcher Schuhmarke gibt es die kleinste Preisspanne?"___
+
+- `SELECT shoe_id, MIN(prices_amountmax - prices_amountmin) as min_difference FROM fact_prices GROUP BY shoe_id ORDER BY min_difference LIMIT 1;`
+
+__Teilaufgabe 3: _"Welche Schuhmarken (Top 5) sind durchschnittlich die günstigsten bei der Währung USD?"___
+
+- `SELECT shoe_id, name, prices_currency, avg(prices_amountmin) as average_price FROM fact_prices LEFT JOIN dim_shoes_key_data ON fact_prices.shoe_id = dim_shoes_key_data.shoe_id LEFT JOIN dim_price_properties ON fact_prices.price_properties_id = dim_price_properties.price_properties_id WHERE prices_currency = 'USD' GROUP BY shoe_id, name, prices_currency ORDER BY average_price LIMIT 5;`
+
+
+
+
