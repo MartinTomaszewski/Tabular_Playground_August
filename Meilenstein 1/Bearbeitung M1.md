@@ -183,6 +183,92 @@ __Teilaufgabe 3: _"Welche Schuhmarken (Top 5) sind durchschnittlich die günstig
 
 - `SELECT shoe_id, name, prices_currency, avg(prices_amountmin) as average_price FROM fact_prices LEFT JOIN dim_shoes_key_data ON fact_prices.shoe_id = dim_shoes_key_data.shoe_id LEFT JOIN dim_price_properties ON fact_prices.price_properties_id = dim_price_properties.price_properties_id WHERE prices_currency = 'USD' GROUP BY shoe_id, name, prices_currency ORDER BY average_price LIMIT 5;`
 
+## Aufgabe 7
 
+__1. subject-oriented =__ Bei der Themenausrichtung der zu speichernden Daten handelt es sich stets um den Verkauf von Schuhen.
 
+__2. Integrated =__ Es sind nicht genügend Informationen vorhanden, um sicher sagen zu können, ob diese Eigenschaft erfüllt ist. Man weiß nicht, woher die Daten gekommen sind und somit auch nicht, ob sie aus unterschiedlichen Vorsystemen stammen.
 
+__3. nonvolatile =__ Es werden neue Daten regelmäßig (stündlich) in das Data Warehouse hochgeladen, welche in der Faktentabelle und den Dimensionstabelle angehängt werden und somit keine alten Werte überschreiben.
+
+__4. time-variant =__ Die neuen Daten werden u.a. mit den Zeitdaten 'dateadded' und 'dateupdated' gespeichert, wodurch eine zeitraumbezogene Datenhaltung mit der Möglichkeit der Darstellung einer längerfristigen Entwicklung entsteht. 
+
+## Aufgabe 8
+
+`CREATE SCHEMA dwh_shoes AUTHORIZATION bi;`
+
+`CREATE TABLE IF NOT EXISTS dwh_shoes.dim_manufacturers (
+  manufacturer_number varchar(255) PRIMARY KEY,
+  manufacturer varchar(255)
+);`
+
+`CREATE TABLE IF NOT EXISTS dwh_shoes.dim_datetime_added (
+  id_datetime_added SERIAL PRIMARY KEY,
+  datetime timestamp,
+  year int,
+  month int,
+  day int,
+  hour int
+);`
+
+`CREATE TABLE IF NOT EXISTS dwh_shoes.dim_datetime_updated (
+  id_datetime_updated SERIAL PRIMARY KEY,
+  datetime timestamp,
+  year int,
+  month int,
+  day int,
+  hour int
+);`
+
+`CREATE TABLE IF NOT EXISTS dwh_shoes.dim_merchants (
+  merchant_id SERIAL PRIMARY KEY,
+  name varchar(255),
+  datetime_seen timestamp
+);`
+
+`CREATE TABLE IF NOT EXISTS dwh_shoes.dim_shoes_key_data (
+  shoe_id varchar(255) PRIMARY KEY,
+  name varchar(255),
+  brand varchar(255),
+  weight FLOAT,
+  image_urls text
+);`
+
+`CREATE TABLE IF NOT EXISTS dwh_shoes.dim_categories (
+  category_id SERIAL PRIMARY KEY,
+  name varchar(255)
+);`
+
+`CREATE TABLE IF NOT EXISTS dwh_shoes.dim_colors (
+  color_id SERIAL PRIMARY KEY,
+  name varchar(255)
+);`
+
+`CREATE TABLE IF NOT EXISTS dwh_shoes.dim_price_properties (
+  price_properties_id SERIAL PRIMARY KEY,
+  prices_currency varchar(10),
+  prices_condition varchar(255)
+);`
+
+`CREATE TABLE IF NOT EXISTS dwh_shoes.fact_prices (
+  shoe_id varchar(255),
+  manufacturer_number varchar(255),
+  merchant_id int,
+  category_id int,
+  color_id int,
+  price_properties_id int,
+  id_datetime_added int,
+  id_datetime_updated int,
+  prices_amount_min float,
+  prices_amount_max float,
+  PRIMARY KEY (shoe_id, manufacturer_number, merchant_id, category_id, color_id, price_properties_id,
+               id_datetime_added, id_datetime_updated),
+  FOREIGN KEY (manufacturer_number) REFERENCES dwh_shoes.dim_manufacturers(manufacturer_number) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (id_datetime_added) REFERENCES dwh_shoes.dim_datetime_added(id_datetime_added) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (id_datetime_updated) REFERENCES dwh_shoes.dim_datetime_updated(id_datetime_updated) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (merchant_id) REFERENCES dwh_shoes.dim_merchants(merchant_id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (shoe_id) REFERENCES dwh_shoes.dim_shoes_key_data(shoe_id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (category_id) REFERENCES dwh_shoes.dim_categories(category_id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (color_id) REFERENCES dwh_shoes.dim_colors(color_id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (price_properties_id) REFERENCES dwh_shoes.dim_price_properties(price_properties_id) ON DELETE SET NULL ON UPDATE CASCADE
+);`
