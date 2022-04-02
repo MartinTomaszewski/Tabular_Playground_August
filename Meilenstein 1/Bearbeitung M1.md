@@ -159,15 +159,7 @@ ___Teilaufgabe 3___
 
 > __Legende:__ Doppelt unterstrichen => Primary Key und Foreign Key
 
-- fact_prices(<span style="font-weight: bold; text-decoration: underline double">shoe_id</span>, <span style="font-weight: bold; text-decoration: underline double">category_id</span>, <span style="font-weight: double; text-decoration: underline double">manufacturernumber</span>, <span style="font-weight: bold; text-decoration: underline double">merchant_id</span>, <span style="font-weight: bold; text-decoration: underline double">category_id</span>, <span style="font-weight: bold; text-decoration: underline double">color_id</span>, <span style="font-weight: bold; text-decoration: underline double">price_properties_id</span>, prices_amountmin, prices_amountmax)
-- dim_shoes_key_data(<span style="font-weight: bold; text-decoration: underline solid">shoe_id</span>, name, brand, weight, imageurls)
-- dim_categories(<span style="font-weight: bold; text-decoration: underline solid">category_id</span>, name)
-- dim_colors(<span style="font-weight: bold; text-decoration: underline solid">color_id</span>, name)
-- dim_price_properties(<span style="font-weight: bold; text-decoration: underline solid">price_properties_id</span>, prices_currency, prices_condition)
-- dim_manufacturers(<span style="font-weight: bold; text-decoration: underline solid">manufacturernumber</span>, manufacturer)
-- dim_datetime_added(<span style="font-weight: bold; text-decoration: underline solid">id_datetime_added</span>, hour, day, month, year, datetime)
-- dim_datetime_updated(<span style="font-weight: bold; text-decoration: underline solid">id_datetime_updated</span>, hour, day, month, year, datetime)
-- dim_merchants(<span style="font-weight: bold; text-decoration: underline solid">merchant_id</span>, name)
+![](./pictures/6b.png)
 
 ### Aufgabe 6c)
 
