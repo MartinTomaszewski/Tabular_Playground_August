@@ -20,7 +20,7 @@ ___Teilaufgabe 1___
 
 ___Teilaufgabe 2___
 
-- `SELECT brand, count(\*) FROM shoes GROUP BY brand ORDER BY count(\*) DESC, brand LIMIT 5;`
+- `SELECT brand, count(*) FROM shoes GROUP BY brand ORDER BY count(*) DESC, brand LIMIT 5;`
 
 ___Teilaufgabe 3___
 
@@ -179,11 +179,11 @@ __Teilaufgabe 3: _"Welche Schuhmarken (Top 5) sind durchschnittlich die günstig
 
 __1. subject-oriented =__ Bei der Themenausrichtung der zu speichernden Daten handelt es sich stets um den Verkauf von Schuhen.
 
-__2. Integrated =__ Es sind nicht genügend Informationen vorhanden, um sicher sagen zu können, ob diese Eigenschaft erfüllt ist. Man weiß nicht, woher die Daten gekommen sind und somit auch nicht, ob sie aus unterschiedlichen Vorsystemen stammen.
+__2. Integrated =__ Die Datenhaltung der Schuhe erfolgt konsistent und mit einheitlichen Formaten, Strukturen und Semantik und die Daten stammen aus unterschiedlichen Vorsystemen.
 
 __3. nonvolatile =__ Es werden neue Daten regelmäßig (stündlich) in das Data Warehouse hochgeladen, welche in der Faktentabelle und den Dimensionstabelle angehängt werden und somit keine alten Werte überschreiben.
 
-__4. time-variant =__ Die neuen Daten werden u.a. mit den Zeitdaten 'dateadded' und 'dateupdated' gespeichert, wodurch eine zeitraumbezogene Datenhaltung mit der Möglichkeit der Darstellung einer längerfristigen Entwicklung entsteht. 
+__4. time-variant =__ Die neuen Daten werden u.a. mit den Zeitdaten 'datetime added' und 'datetime updated' gespeichert, wodurch eine zeitraumbezogene Datenhaltung mit der Möglichkeit der Darstellung einer längerfristigen Entwicklung entsteht. 
 
 ## Aufgabe 8
 
