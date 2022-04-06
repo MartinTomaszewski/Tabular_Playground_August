@@ -20,11 +20,11 @@ ___Teilaufgabe 1___
 
 ___Teilaufgabe 2___
 
-- `SELECT brand, count(*) FROM shoes GROUP BY brand ORDER BY count(*) DESC, brand LIMIT 5;`
+- `SELECT id, brand, count(*) FROM shoes GROUP BY id, brand ORDER BY count(*) DESC, brand LIMIT 5;`
 
 ___Teilaufgabe 3___
 
-![](./pictures/3a.PNG)
+![](pictures/3a.PNG)
 
 ### Aufgabe 3b)
 
@@ -49,11 +49,11 @@ ___Teilaufgabe 3___
 
 - Größtes Gewicht
 
-![](./pictures/3b_1.PNG)
+![](pictures/3b_1.PNG)
 
 - Geringstes Gewicht
 
-![](./pictures/3b_2.PNG)
+![](pictures/3b_2.PNG)
 
 ### Aufgabe 3c)
 
@@ -67,7 +67,7 @@ ___Teilaufgabe 2___
 
 ___Teilaufgabe 3___
 
-![](./pictures/3c.PNG)
+![](pictures/3c.PNG)
 
 ### Aufgabe 3d)
 
@@ -81,7 +81,7 @@ ___Teilaufgabe 2___
 
 ___Teilaufgabe 3___
 
-![](./pictures/3d.PNG)
+![](pictures/3d.PNG)
 
 ### Aufgabe 3e)
 
@@ -95,7 +95,7 @@ ___Teilaufgabe 2___
 
 ___Teilaufgabe 3___
 
-![](./pictures/3e.PNG)
+![](pictures/3e.PNG)
 
 ### Aufgabe 3f)
 
@@ -109,7 +109,7 @@ ___Teilaufgabe 2___
 
 ___Teilaufgabe 3___
 
-![](./pictures/3f.PNG)
+![](pictures/3f.PNG)
 
 ### Aufgabe 3g)
 
@@ -123,7 +123,7 @@ ___Teilaufgabe 2___
 
 ___Teilaufgabe 3___
 
-![](./pictures/3g.PNG)
+![](pictures/3g.PNG)
 
 ### Aufgabe 3h)
 
@@ -137,7 +137,7 @@ ___Teilaufgabe 2___
 
 ___Teilaufgabe 3___
 
-![](./pictures/3h.PNG)
+![](pictures/3h.PNG)
 
 ## Aufgabe 4
 
@@ -153,27 +153,27 @@ ___Teilaufgabe 3___
 
 ### Aufgabe 6a)
 
-![](./pictures/6a.png)
+![](pictures/6a.png)
 
 ### Aufgabe 6b)
 
 > __Legende:__ Doppelt unterstrichen => Primary Key und Foreign Key
 
-![](./pictures/6b.png)
+![](pictures/6b.png)
 
 ### Aufgabe 6c)
 
 __Teilaufgabe 1: _"Bei welcher Schuhmarke gibt es die größte Preisspanne?"___
 
-- `SELECT shoe_id, MAX(prices_amountmax - prices_amountmin) as max_difference FROM fact_prices GROUP BY shoe_id ORDER BY max_difference DESC LIMIT 1;`
+- `SELECT shoe_id, MAX(prices_amountmax - prices_amountmin) as max_difference FROM dwh_shoes.fact_prices GROUP BY shoe_id ORDER BY max_difference DESC LIMIT 1;`
 
 __Teilaufgabe 2: _"Bei welcher Schuhmarke gibt es die kleinste Preisspanne?"___
 
-- `SELECT shoe_id, MIN(prices_amountmax - prices_amountmin) as min_difference FROM fact_prices GROUP BY shoe_id ORDER BY min_difference LIMIT 1;`
+- `SELECT shoe_id, MIN(prices_amountmax - prices_amountmin) as min_difference FROM dwh_shoes.fact_prices GROUP BY shoe_id ORDER BY min_difference LIMIT 1;`
 
 __Teilaufgabe 3: _"Welche Schuhmarken (Top 5) sind durchschnittlich die günstigsten bei der Währung USD?"___
 
-- `SELECT shoe_id, name, prices_currency, avg(prices_amountmin) as average_price FROM fact_prices LEFT JOIN dim_shoes_key_data ON fact_prices.shoe_id = dim_shoes_key_data.shoe_id LEFT JOIN dim_price_properties ON fact_prices.price_properties_id = dim_price_properties.price_properties_id WHERE prices_currency = 'USD' GROUP BY shoe_id, name, prices_currency ORDER BY average_price LIMIT 5;`
+`SELECT shoe_id, brand, avg(prices_amountmin) as average_price FROM dwh_shoes.fact_prices WHERE prices_currency = 'USD' GROUP BY shoe_id, brand ORDER BY average_price LIMIT 1;`
 
 ## Aufgabe 7
 
@@ -221,7 +221,6 @@ __4. time-variant =__ Die neuen Daten werden u.a. mit den Zeitdaten 'datetime ad
 `CREATE TABLE IF NOT EXISTS dwh_shoes.dim_shoes_key_data (
   shoe_id varchar(255) PRIMARY KEY,
   name varchar(255),
-  brand varchar(255),
   weight FLOAT,
   image_urls text
 );`
@@ -238,7 +237,6 @@ __4. time-variant =__ Die neuen Daten werden u.a. mit den Zeitdaten 'datetime ad
 
 `CREATE TABLE IF NOT EXISTS dwh_shoes.dim_price_properties (
   price_properties_id SERIAL PRIMARY KEY,
-  prices_currency varchar(10),
   prices_condition varchar(255)
 );`
 
@@ -251,6 +249,8 @@ __4. time-variant =__ Die neuen Daten werden u.a. mit den Zeitdaten 'datetime ad
   price_properties_id int,
   id_datetime_added int,
   id_datetime_updated int,
+  brand varchar(255),
+  prices_currency varchar(10),
   prices_amount_min float,
   prices_amount_max float,
   PRIMARY KEY (shoe_id, manufacturer_number, merchant_id, category_id, color_id, price_properties_id,
