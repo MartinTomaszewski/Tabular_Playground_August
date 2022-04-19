@@ -21,14 +21,14 @@ __Vergleich ETL-Software:__
 
 ## Aufgabe 3
 
-| Part | Aufgabe | Antwort                   |
-| ---- | ------- |---------------------------|
-| a)   | Wie viele Datensätze haben die order_priority = „H“ (High) | 1.278                     |
-| b)   | Wie viele Einheiten (units_sold) wurden in Asien (region) in Summe verkauft? | 3.620.036                 |
-| c)   | Wie viele Einheiten (units_sold) wurden in Asien und Europa (region) in Summe verkauft? | 10.202.358                |
-| d)   | Wie viele Einheiten (units_sold) wurden im Jahr 2013 Online (sales_channel) verkauft? | 341                       |
+| Part | Aufgabe                                                                                             | Antwort                   |
+| ---- |-----------------------------------------------------------------------------------------------------|---------------------------|
+| a)   | Wie viele Datensätze haben die order_priority = „H“ (High)                                          | 1.278                     |
+| b)   | Wie viele Einheiten (units_sold) wurden in Asien (region) in Summe verkauft?                        | 3.620.036                 |
+| c)   | Wie viele Einheiten (units_sold) wurden in Asien und Europa (region) in Summe verkauft?             | 10.202.358                |
+| d)   | Wie viele Einheiten (units_sold) wurden im Jahr 2013 Online (sales_channel) verkauft?               | 1.734.703                 |
 | e)   | Wie viele Bestellungen gab es in 2013 (order_date), die erst in 2014 (ship_date) verschickt wurden? | 39                        |
-| f)   | Überprüfen Sie, ob die Spalte „total_profit“ einen Berechnungsfehler enthält. | Ja, insgesamt drei Fehler |
+| f)   | Überprüfen Sie, ob die Spalte „total_profit“ einen Berechnungsfehler enthält.                       | Ja, insgesamt drei Fehler |
 
 ## Aufgabe 4
 
