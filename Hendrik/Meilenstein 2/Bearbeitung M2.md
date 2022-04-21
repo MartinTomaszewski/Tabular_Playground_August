@@ -42,11 +42,11 @@ __Vergleich ETL-Software:__
 
 ## Aufgabe 5 + 6a)
 
-| Part | Aufgabe                                                                      | Antwort                     |
-|------|------------------------------------------------------------------------------|-----------------------------|
-| F1   | Welche Schuhfarbe kommt am häufigsten vor? Ignorieren Sie unbekannte Farben. | Black                       |
-| F2   | Wie häufig kommt die Schuhfarbe vor?                                         | 71                          |
-| F3   | Bei welcher Marke gibt es am häufigsten bedingungslos freien Versand?        | Puentes Denver mit Anzahl 3 |
+| Part | Aufgabe                                                                      | Antwort            |
+|------|------------------------------------------------------------------------------|--------------------|
+| F1   | Welche Schuhfarbe kommt am häufigsten vor? Ignorieren Sie unbekannte Farben. | Black              |
+| F2   | Wie häufig kommt die Schuhfarbe vor?                                         | 71                 |
+| F3   | Bei welcher Marke gibt es am häufigsten bedingungslos freien Versand?        | Nike mit Anzahl 25 |
 
 ## Aufgabe 6b)
 
