@@ -214,10 +214,14 @@ CREATE USER reporter_all;
 CREATE USER updater;
 CREATE USER maintenance;
 
+GRANT USAGE ON SCHEMA ad_dwh to reporter_current;
 GRANT SELECT ON ad_dwh.data_current_month TO reporter_current;
 
+GRANT USAGE ON SCHEMA ad_dwh to reporter_all;
 GRANT SELECT ON ad_dwh.data_completed_months TO reporter_all;
 
+GRANT USAGE ON SCHEMA ad_dwh to updater;
 GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA ad_dwh TO updater;
 
+GRANT ALL PRIVILEGES ON SCHEMA ad_dwh to maintenance;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ad_dwh TO maintenance;
